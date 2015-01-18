@@ -10,7 +10,7 @@
 #import <MapKit/MapKit.h>
 #import <CoreLocation/CoreLocation.h>
 
-@interface KBMapController : UIViewController <CLLocationManagerDelegate, MKMapViewDelegate>
+@interface KBMapController : UIViewController <CLLocationManagerDelegate, MKMapViewDelegate, NSStreamDelegate>
 
 - (instancetype)initWithDirectionSteps:(NSArray *)steps;
 
