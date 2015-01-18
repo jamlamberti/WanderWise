@@ -10,7 +10,7 @@ class Pins:
     servoPanLeft   = 10;
     servoPanRight  = 9;
     servoPanCenter = 11;
-    done           = 12;
+    done           = 25;
 
 def gpio_setup():
 
