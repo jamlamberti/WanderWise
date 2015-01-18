@@ -3,11 +3,7 @@ from matplotlib import pyplot as plt
 import crosswalk
 import curb
 import time
-vid = cv2.VideoCapture(1)
-vid.set(3, 1280)
-vid.set(1,512)
-time.sleep(2)
-#vid.set(15, -8.0)
+vid = cv2.VideoCapture(0)
 length = 500
 l_sum = [0]
 r_sum = [0]
@@ -33,5 +29,6 @@ while True:
         import traceback
         traceback.print_exc()
         pass
-    cv2.imshow('My Video', img)
-    cv2.waitKey(10)
+    #cv2.imshow('My Video', img)
+    #cv2.waitKey(10)
+    time.sleep(1)
