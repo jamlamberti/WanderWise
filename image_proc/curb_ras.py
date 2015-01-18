@@ -50,20 +50,23 @@ def process(im, iters=5, smoothLines=True, l_old=None, r_old=None):
     center = (w/2, h/2)
     M = cv2.getRotationMatrix2D(center, 180, 1.0)
     rotated = cv2.warpAffine(img_raw, M, (w, h))
+    status = 0
     try:
         average = (right_final + left_final)/2
         sign = (average - len(img_raw[0])/2)/abs(average - len(img_raw[0])/2)
-        if len(img_raw[0])/2 - average < 5:
+        if len(img_raw[0])/2 < average:
+            status = average - len(img_raw[0])/2
             #cv2.putText(rotated, 'Veere right', (0, h/2), cv2.FONT_HERSHEY_SIMPLEX, 5, (0, 0, 0))
             pass
         else:
+            status = len(img_raw[0])/2 - average
             #cv2.putText(rotated, 'Veere Left', (0, h/2), cv2.FONT_HERSHEY_SIMPLEX, 5, (0, 0, 0))
             pass
     except:
         power = 0
     if smoothLines:
-        return rotated, leftEdge, rightEdge
-    return rotated
+        return rotated, leftEdge, rightEdge, status
+    return rotated, status
 def test():
     im = cv2.imread('curb1.jpg')
     im = cv2.resize(im, (0,0), fx=0.5, fy=0.5)

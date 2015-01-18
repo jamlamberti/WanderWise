@@ -18,7 +18,7 @@ while True:
     M = cv2.getRotationMatrix2D(center, 180, 1.0)
     img = cv2.warpAffine(img, M, (w, h))
     try:
-        img, left, right = curb.process(img, l_old=sum(l_sum)/len(l_sum), r_old=sum(r_sum)/len(r_sum))
+        img, left, right, status = curb.process(img, l_old=sum(l_sum)/len(l_sum), r_old=sum(r_sum)/len(r_sum))
         l_sum.append(left)
         r_sum.append(right)
         if len(l_sum) >= 8:
