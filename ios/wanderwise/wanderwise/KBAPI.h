@@ -14,4 +14,8 @@
                         fromOrigin:(NSString *)origin
              withCompletionHandler:(void(^)(id response, NSError *error))handler;
 
+- (void)getGoogleDirectionsToDestination:(NSString *)destination
+                              fromOrigin:(NSString *)origin
+                   withCompletionHandler:(void(^)(id response, NSError *error))handler;
+
 @end
