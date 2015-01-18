@@ -49,30 +49,17 @@ def process(im, iters=5, smoothLines=True, l_old=None, r_old=None):
                 leftEdge = pnt[0]
             elif pnt[0] > x and pnt[0] < rightEdge:
                 rightEdge = pnt[0]
-    left_final = leftEdge
-    right_final = rightEdge
     if l_old is None:
         cv2.line(img_raw, (leftEdge, 0), (leftEdge, h), (255, 0, 0), thickness=3)
     else:
         cv2.line(img_raw, (l_old, 0), (l_old, h), (255, 0, 0), thickness=3)
-        left_final = l_old
     if r_old is None:
         cv2.line(img_raw, (rightEdge, 0), (rightEdge, h), (255, 0, 0), thickness=3)
     else:
         cv2.line(img_raw, (r_old, 0), (r_old, h), (255, 0, 0), thickness=3)
-        right_final = r_old
     center = (w/2, h/2)
     M = cv2.getRotationMatrix2D(center, 180, 1.0)
     rotated = cv2.warpAffine(img_raw, M, (w, h))
-    try:
-        average = (right_final + left_final)/2
-        sign = (average - len(img_raw[0])/2)/abs(average - len(img_raw[0])/2)
-        if len(img_raw[0])/2 - average < 5:
-            cv2.putText(rotated, 'Veere right', (0, h/2), cv2.FONT_HERSHEY_SIMPLEX, 5, (0, 0, 0))
-        else:
-            cv2.putText(rotated, 'Veere Left', (0, h/2), cv2.FONT_HERSHEY_SIMPLEX, 5, (0, 0, 0))
-    except:
-        power = 0
     if smoothLines:
         return rotated, leftEdge, rightEdge
     return rotated

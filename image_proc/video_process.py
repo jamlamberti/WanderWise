@@ -4,6 +4,8 @@ import crosswalk
 import curb
 vid = cv2.VideoCapture(1)
 length = 500
+l_sum = [0]
+r_sum = [0]
 while True:
     success, img = vid.read()
     if not success:
@@ -14,7 +16,13 @@ while True:
     M = cv2.getRotationMatrix2D(center, 180, 1.0)
     rotated = cv2.warpAffine(img, M, (w, h))
     try:
-        rotated = curb.process(rotated)
+        rotated, left, right = curb.process(rotated, l_old=sum(l_sum)/len(l_sum), r_old=sum(r_sum)/len(r_sum))
+        l_sum.append(left)
+        r_sum.append(right)
+        if len(l_sum) >= 8:
+            del l_sum[0]
+        if len(r_sum) >= 8:
+            del r_sum[0]
     except:
         import traceback
         traceback.print_exc()
