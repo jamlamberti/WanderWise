@@ -15,6 +15,12 @@
 		F57045751A6A786100BAE10F /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F57045731A6A786000BAE10F /* MapKit.framework */; };
 		F57045791A6A78D800BAE10F /* KBMapController.m in Sources */ = {isa = PBXBuildFile; fileRef = F57045771A6A78D800BAE10F /* KBMapController.m */; };
 		F570457A1A6A78D800BAE10F /* KBMapController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F57045781A6A78D800BAE10F /* KBMapController.xib */; };
+		F58F33711A6B3970002DA261 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F58F33701A6B3970002DA261 /* CFNetwork.framework */; };
+		F58F33731A6B3974002DA261 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F58F33721A6B3974002DA261 /* Security.framework */; };
+		F58F33771A6B956B002DA261 /* clearButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F58F33751A6B956B002DA261 /* clearButton@2x.png */; };
+		F58F33781A6B956B002DA261 /* clearButtonPressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F58F33761A6B956B002DA261 /* clearButtonPressed@2x.png */; };
+		F58F337B1A6B9580002DA261 /* KBSearchTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = F58F33791A6B9580002DA261 /* KBSearchTextField.m */; };
+		F58F337E1A6B984E002DA261 /* app_title_logo.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F58F337D1A6B984E002DA261 /* app_title_logo.jpg */; };
 		F5F746421A6A2B6A00605473 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5F746411A6A2B6A00605473 /* Foundation.framework */; };
 		F5F746441A6A2B6A00605473 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5F746431A6A2B6A00605473 /* CoreGraphics.framework */; };
 		F5F746461A6A2B6A00605473 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5F746451A6A2B6A00605473 /* UIKit.framework */; };
@@ -55,6 +61,13 @@
 		F57045761A6A78D800BAE10F /* KBMapController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KBMapController.h; sourceTree = "<group>"; };
 		F57045771A6A78D800BAE10F /* KBMapController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KBMapController.m; sourceTree = "<group>"; };
 		F57045781A6A78D800BAE10F /* KBMapController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = KBMapController.xib; sourceTree = "<group>"; };
+		F58F33701A6B3970002DA261 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		F58F33721A6B3974002DA261 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		F58F33751A6B956B002DA261 /* clearButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "clearButton@2x.png"; sourceTree = "<group>"; };
+		F58F33761A6B956B002DA261 /* clearButtonPressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "clearButtonPressed@2x.png"; sourceTree = "<group>"; };
+		F58F33791A6B9580002DA261 /* KBSearchTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KBSearchTextField.m; sourceTree = "<group>"; };
+		F58F337A1A6B9580002DA261 /* KBSearchTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KBSearchTextField.h; sourceTree = "<group>"; };
+		F58F337D1A6B984E002DA261 /* app_title_logo.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = app_title_logo.jpg; sourceTree = "<group>"; };
 		F5F7463E1A6A2B6A00605473 /* wanderwise.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = wanderwise.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F5F746411A6A2B6A00605473 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		F5F746431A6A2B6A00605473 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -81,6 +94,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F58F33731A6B3974002DA261 /* Security.framework in Frameworks */,
+				F58F33711A6B3970002DA261 /* CFNetwork.framework in Frameworks */,
 				F57045741A6A786100BAE10F /* CoreLocation.framework in Frameworks */,
 				F57045751A6A786100BAE10F /* MapKit.framework in Frameworks */,
 				F52E6D4B1A6A4CD50084F5A8 /* AVFoundation.framework in Frameworks */,
@@ -141,6 +156,25 @@
 			name = MapController;
 			sourceTree = "<group>";
 		};
+		F58F33741A6B955E002DA261 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				F58F337D1A6B984E002DA261 /* app_title_logo.jpg */,
+				F58F33751A6B956B002DA261 /* clearButton@2x.png */,
+				F58F33761A6B956B002DA261 /* clearButtonPressed@2x.png */,
+			);
+			name = Images;
+			sourceTree = "<group>";
+		};
+		F58F337C1A6B9584002DA261 /* SearchTextField */ = {
+			isa = PBXGroup;
+			children = (
+				F58F337A1A6B9580002DA261 /* KBSearchTextField.h */,
+				F58F33791A6B9580002DA261 /* KBSearchTextField.m */,
+			);
+			name = SearchTextField;
+			sourceTree = "<group>";
+		};
 		F5F746351A6A2B6A00605473 = {
 			isa = PBXGroup;
 			children = (
@@ -164,6 +198,8 @@
 		F5F746401A6A2B6A00605473 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F58F33721A6B3974002DA261 /* Security.framework */,
+				F58F33701A6B3970002DA261 /* CFNetwork.framework */,
 				F57045721A6A786000BAE10F /* CoreLocation.framework */,
 				F57045731A6A786000BAE10F /* MapKit.framework */,
 				F52E6D4A1A6A4CD50084F5A8 /* AVFoundation.framework */,
@@ -179,9 +215,11 @@
 		F5F746471A6A2B6A00605473 /* wanderwise */ = {
 			isa = PBXGroup;
 			children = (
+				F58F33741A6B955E002DA261 /* Images */,
 				F5F746501A6A2B6A00605473 /* KBAppDelegate.h */,
 				F5F746511A6A2B6A00605473 /* KBAppDelegate.m */,
 				F5F746531A6A2B6A00605473 /* Images.xcassets */,
+				F58F337C1A6B9584002DA261 /* SearchTextField */,
 				F5F746481A6A2B6A00605473 /* Supporting Files */,
 				F5F746751A6A32EB00605473 /* DestinationController */,
 				F52E6D491A6A3E600084F5A8 /* API */,
@@ -311,10 +349,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F58F33771A6B956B002DA261 /* clearButton@2x.png in Resources */,
 				F5F7464C1A6A2B6A00605473 /* InfoPlist.strings in Resources */,
 				F5F746541A6A2B6A00605473 /* Images.xcassets in Resources */,
 				F5F746741A6A32E200605473 /* KBDestinationController.xib in Resources */,
+				F58F337E1A6B984E002DA261 /* app_title_logo.jpg in Resources */,
 				F570457A1A6A78D800BAE10F /* KBMapController.xib in Resources */,
+				F58F33781A6B956B002DA261 /* clearButtonPressed@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -368,6 +409,7 @@
 			files = (
 				F5F7464E1A6A2B6A00605473 /* main.m in Sources */,
 				F57045701A6A623F00BAE10F /* KBDirectionStep.m in Sources */,
+				F58F337B1A6B9580002DA261 /* KBSearchTextField.m in Sources */,
 				F52E6D481A6A3E5D0084F5A8 /* KBAPI.m in Sources */,
 				F57045791A6A78D800BAE10F /* KBMapController.m in Sources */,
 				F5F746521A6A2B6A00605473 /* KBAppDelegate.m in Sources */,
