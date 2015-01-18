@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface KBDestinationController : UIViewController
+@interface KBDestinationController : UIViewController <UITextFieldDelegate, NSStreamDelegate>
 
 @end

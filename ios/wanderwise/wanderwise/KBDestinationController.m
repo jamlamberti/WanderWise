@@ -9,14 +9,18 @@
 #import "KBDestinationController.h"
 #import "KBDirectionStep.h"
 #import "KBMapController.h"
+#import "KBSearchTextField.h"
 @interface KBDestinationController ()
 
-@property (nonatomic, strong) IBOutlet UITextField *origin;
-@property (nonatomic, strong) IBOutlet UITextField *destination;
+@property (nonatomic, strong) IBOutlet KBSearchTextField *origin;
+@property (nonatomic, strong) IBOutlet KBSearchTextField *destination;
 @property (nonatomic, strong) KBAPI *api;
 @property (nonatomic, strong) NSArray *maneuvers;
 @property (nonatomic, strong) NSArray *directions;
 @property (nonatomic, strong) NSArray *prepostions;
+@property (strong, nonatomic) NSInputStream *inputStream;
+@property (strong, nonatomic) NSOutputStream *outputStream;
+
 
 @end
 
@@ -33,8 +37,30 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.origin.text = @"3421 Chestnut St, Philadelphia, PA 19104, USA";
-    self.destination.text = @"3142-3198 Ludlow St, Philadelphia, PA 19104, USA";
+    [self initNetworkCommunication];
+    [self setNeedsStatusBarAppearanceUpdate];
+    [self.origin setDelegate:self];
+    [self.destination setDelegate:self];
+    [self.view addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self.view
+                                                                            action:@selector(endEditing:)]];
+}
+
+- (void)initNetworkCommunication {
+    CFReadStreamRef readStream;
+    CFWriteStreamRef writeStream;
+    CFStreamCreatePairWithSocketToHost(NULL, (CFStringRef)@"158.130.161.107", 9999, &readStream, &writeStream);
+    self.inputStream = (__bridge NSInputStream *)readStream;
+    self.outputStream = (__bridge NSOutputStream *)writeStream;
+    [self.inputStream setDelegate:self];
+    [self.outputStream setDelegate:self];
+    [self.inputStream scheduleInRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
+    [self.outputStream scheduleInRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
+    [self.inputStream open];
+    [self.outputStream open];
+}
+
+-(UIStatusBarStyle)preferredStatusBarStyle{
+    return UIStatusBarStyleLightContent;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -47,25 +73,57 @@
     [super viewWillDisappear:animated];
 }
 
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    if ([textField isEqual:self.origin]) {
+        return [self.destination becomeFirstResponder];
+    }
+    [textField resignFirstResponder];
+    return NO;
+}
+
+- (IBAction)testRoute {
+    self.origin.text = @"3312 Walnut St, Philadelphia, PA 19104";
+    self.destination.text = @"240 S 33rd St, Philadelphia, PA 19104";
+}
+
+- (IBAction)simulateLeft {
+    [self sendStringOverSockets:@"Turn: Left"];    
+}
+
+- (IBAction)simulateRight:(id)sender {
+    [self sendStringOverSockets:@"Turn: Right"];
+}
+
+- (void)sendStringOverSockets:(NSString *)string
+{
+	NSData *data = [[NSData alloc] initWithData:[string dataUsingEncoding:NSASCIIStringEncoding]];
+	[self.outputStream write:[data bytes] maxLength:[data length]];
+}
+
 - (IBAction)getDirections
 {
-    [self.api getDirectionsToDestination:self.destination.text
-                              fromOrigin:self.origin.text
-                   withCompletionHandler:^(id response, NSError *error) {
-        if (error) {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error"
-                                                            message:@"Looks like something went wrong :("
-                                                           delegate:nil
-                                                  cancelButtonTitle:@"Ok"
-                                                  otherButtonTitles: nil];
-            return [alert show];
-        }
-        NSArray *directionSteps = [self parseRouteResponse:response];
-        if (directionSteps) {
-            NSLog(@"%@", directionSteps);
-            [self.navigationController pushViewController:[[KBMapController alloc]initWithDirectionSteps:directionSteps] animated:YES];
-        }
-    }];
+    [self.view endEditing:YES];
+    if (!(self.origin.text.length && self.destination.text.length)) return;
+    [self.api getGoogleDirectionsToDestination:self.destination.text
+                                    fromOrigin:self.origin.text
+                         withCompletionHandler:^(id response, NSError *error) {
+                             if (error) return [self showAnError];
+                             NSArray *directionSteps = [self parseRouteResponse:response];
+                             if (directionSteps) {
+                                 [self.navigationController pushViewController:[[KBMapController alloc]initWithDirectionSteps:directionSteps] animated:YES];
+                             }
+                         }];
+}
+
+- (void)showAnError
+{
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error"
+                                                    message:@"Looks like something went wrong :("
+                                                   delegate:nil
+                                          cancelButtonTitle:@"Ok"
+                                          otherButtonTitles: nil];
+    return [alert show];
 }
 
 // returns array of steps to follow
@@ -114,6 +172,18 @@
         if ([instructionParts containsObject:@"WEST"]) {
             dict[@"maneuverDirection"] = instructionParts[[instructionParts indexOfObject:@"WEST"]];
         }
+        if ([instructionParts containsObject:@"NORTH"]) {
+            dict[@"maneuverDirection"] = instructionParts[[instructionParts indexOfObject:@"NORTH"]];
+        }
+        if ([instructionParts containsObject:@"SOUTH"]) {
+            dict[@"maneuverDirection"] = instructionParts[[instructionParts indexOfObject:@"SOUTH"]];
+        }
+        if ([instructionParts containsObject:@"NORTHWEST"]) {
+            dict[@"maneuverDirection"] = instructionParts[[instructionParts indexOfObject:@"NORTHWEST"]];
+        }
+        if ([instructionParts containsObject:@"NORTHEAST"]) {
+            dict[@"maneuverDirection"] = instructionParts[[instructionParts indexOfObject:@"NORTHEAST"]];
+        }
         if ([instructionParts containsObject:@"ON"]) {
             dict[@"maneuverPrepostion"] = instructionParts[[instructionParts indexOfObject:@"ON"]];
         }
@@ -155,7 +225,7 @@
         }
         
         dict[@"instructionString"] = instruction;
-        NSLog(@"%@", instruction);
+//        NSLog(@"%@", instruction);
         NSLog(@"%@", dict);
         [directionSteps addObject:[[KBDirectionStep alloc] initWithData:dict]];
     }
