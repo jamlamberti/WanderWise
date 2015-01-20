@@ -7,6 +7,7 @@
 //
 
 #import "KBAppDelegate.h"
+#import "KBDestinationController.h"
 
 @implementation KBAppDelegate
 
@@ -14,6 +15,7 @@
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
+    self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:[[KBDestinationController alloc] init]];
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     return YES;
