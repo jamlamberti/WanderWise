@@ -2,6 +2,9 @@
 ###_**Health Hack Honorable Mention**_
 #####_Freedom for the visually & auditory impaired._
 _Built in 40 hours at PennApps Winter 2015 Hackathon_
+
+_[Challenge Post Submission](http://challengepost.com/software/wanderwise)_
+
 ## About
 The gift of hearing and vision are senses we commonly take for granted. Approximately 50,000 Americans have been classified as deaf-blind. Unfortunately many of the deaf-blind experience the world as an unpredictable, and possibly threatening place. 
 
