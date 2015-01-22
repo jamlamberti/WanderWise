@@ -35,7 +35,7 @@ def startServer():
 
     HOST="0.0.0.0"
     PORT=9999
-
+    SocketServer.TCPServer.allow_reuse_address = True
     # Create the server, binding to localhost on port 9999
     server = SocketServer.TCPServer((HOST, PORT), MyTCPHandler)
 
