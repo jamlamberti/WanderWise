@@ -87,13 +87,13 @@
     self.destination.text = @"240 S 33rd St, Philadelphia, PA 19104";
 }
 
-- (IBAction)simulateLeft {
-    [self sendStringOverSockets:@"Turn: Left"];    
-}
-
-- (IBAction)simulateRight:(id)sender {
-    [self sendStringOverSockets:@"Turn: Right"];
-}
+//- (IBAction)simulateLeft {
+//    [self sendStringOverSockets:@"Turn: Left"];    
+//}
+//
+//- (IBAction)simulateRight:(id)sender {
+//    [self sendStringOverSockets:@"Turn: Right"];
+//}
 
 - (void)sendStringOverSockets:(NSString *)string
 {
